@@ -12,6 +12,15 @@ public class SelectionSorter implements IntSorter{
 
   public void sort(){
     startTime = System.nanoTime();
+    for (int i = 0; i < array.length - 1; i++){
+      int smallestIndex = i;
+      for (int k = i + 1; k < array.length; k++){
+        if (array[smallestIndex] > array[k]){
+          smallestIndex = k;
+        }
+      }
+      swap(array, smallestIndex, i);
+    }
     endTime = System.nanoTime();
   }
 
