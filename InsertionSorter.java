@@ -11,7 +11,20 @@ public class InsertionSorter implements IntSorter{
   }
 
   public void sort(){
-    return endTime - startTime;
+    startTime = System.nanoTime();
+    for (int i = 1; i < array.length; i++){
+      for(int k = i; (k > 0) && (array[k] < array[k-1]); k--){
+        swap(array, k, k-1);
+      }
+    }
+    endTime = System.nanoTime();
+  }
+
+  private void swap(int[] values, int p1, int p2) {
+    int temp = values[p1];
+    values[p1] = values[p2];
+    values[p2] = temp;
+    moves++;
   }
 
   public int getMoves(){
@@ -19,6 +32,6 @@ public class InsertionSorter implements IntSorter{
   }
 
   public long getSortTime(){
-
+    return endTime - startTime;
   }
 }
