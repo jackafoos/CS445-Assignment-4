@@ -1,29 +1,23 @@
 public class InsertionSorter implements IntSorter{
-  /**
-   * This method should initialize your class - reset the # of moves and perform any setup necessary.
-   */
+
+  private int[] array = null;
+  private int moves = 0;
+  private long startTime = 0;
+  private long endTime = 0;
+
   public void init(int[] a){
     this.array = a;
     moves = 0;
   }
 
-  /**
-   * This method should sort the values from init.
-   */
-public void sort(){
-
-}
-
-  /**
-   * This method should return the number of moves made in your sort.
-   */
-  public int getMoves(){
-
+  public void sort(){
+    return endTime - startTime;
   }
 
-  /**
-   * This method should return the number of nanoseconds it took to *only* perform your sort.
-   */
+  public int getMoves(){
+    return moves;
+  }
+
   public long getSortTime(){
 
   }
