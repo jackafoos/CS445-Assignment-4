@@ -15,9 +15,7 @@ public class MergeSorter implements IntSorter{
   public void sort(){
     startTime = System.nanoTime();
     tempArray = new int[array.length];
-    //System.arraycopy(array, 0, tempArray, 0, array.length);
     mergeSort(0, array.length - 1);
-    //System.arraycopy(tempArray, 0, array, 0, array.length);
     endTime = System.nanoTime();
   }
 
@@ -72,7 +70,7 @@ public class MergeSorter implements IntSorter{
     }
 
     //Copy the remaining items from the other array to the main one.
-    while (j < n2)
+    while (j <= last)
     {
       array[index] = tempArray[j];
       j++;
