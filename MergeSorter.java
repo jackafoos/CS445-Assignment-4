@@ -4,6 +4,7 @@ public class MergeSorter implements IntSorter{
   private int moves = 0;
   private long startTime = 0;
   private long endTime = 0;
+  private int[] tempArray = null;
 
   public void init(int[] a){
     this.array = a;
@@ -11,70 +12,72 @@ public class MergeSorter implements IntSorter{
   }
 
   //Sort the array as called per the testclass
-  public void sort(int[] ary, int first, int last){
+  public void sort(){
     startTime = System.nanoTime();
-    mergeSort(array, 0, array.length - 1);
+    tempArray = new int[array.length];
+    //System.arraycopy(array, 0, tempArray, 0, array.length);
+    mergeSort(0, array.length - 1);
+    //System.arraycopy(tempArray, 0, array, 0, array.length);
     endTime = System.nanoTime();
   }
 
   //main divide the array
-  private void mergeSort(int[] ary, int first, int last){
+  private void mergeSort(int first, int last){
     if (first < last){
       //find the approximate midpoint of the array
       int mid = (first + last)/2;
       //sort the first half
-      mergeSort(ary, first, mid);
+      mergeSort(first, mid);
       //sort the second half
-      mergeSort(ary, mid + 1, last);
+      mergeSort(mid + 1, last);
       //merge the two halves
-      merge(ary, first, mid, last);
+      merge(first, mid, last);
     }
   }
 
-  private void merge(int[] ary, int first, int mid, int last){
-    //find the sizes of the arrays to be merged
-    int n1 = mid - first + 1;
-    int n2 = last - mid;
-    //temp arrays
-    int[] firstAry = new int[n1];// L[]
-    int[] lastAry = new int[n2];// R[]
-    System.arraycopy(ary, 0, firstAry, 0, n1 - 1);
-    System.arraycopy(ary, mid + 1, lastAry, 0, n2 - 1);
+  private void merge(int first, int mid, int last){
+
+    for (int i = first; i <= last; i++) {
+          tempArray[i] = array[i];
+      }
 
     //Merge the temp Arrays
-    int i = 0, j = 0;
-    int index = 0;
+    int i = first;
+    int j = mid + 1;
+    int index = first;
 
     /*comparing each item in the arrays, we add the lower one to ary[]
      *because this is recursive, we assume the sub-Arrays are already sorted
      */
-    while(i < n1 && j < n2){
-      if(firstAry[i] <= lastAry[j]){
-        ary[k] = firstAry[i];
+    while(i <= mid && j <= last){
+      if(tempArray[i] <= tempArray[j]){
+        array[index] = tempArray[i];
         i++;
         moves++;
       }else{
-        ary[k] = lastAry[i];
+        array[index] = tempArray[j];
         j++;
         moves++;
       }
-      k++;
+      index++;
     }
 
     //Copy the remaining items from the first array to the main one.
-    while (i < n1)
+    while (i <= mid)
     {
-      arr[k] = firstAry[i];
+      array[index] = tempArray[i];
       i++;
-      k++;
+      index++;
+      moves++;
     }
 
     //Copy the remaining items from the other array to the main one.
     while (j < n2)
     {
-      arr[k] = R[j];
+      array[index] = tempArray[j];
       j++;
-      k++;
+      index++;
+      moves++;
     }
 }
 
